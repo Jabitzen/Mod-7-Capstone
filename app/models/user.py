@@ -13,6 +13,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    display_name = db.Column(db.String(40)),
+    profile_picture = db.Column(db.String(40))
+
+    communities = db.relationship('Community', back_populates = 'owner', cascade = 'all, delete-orphan')
 
     @property
     def password(self):
@@ -29,5 +33,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'displayName':self.display_name
         }
