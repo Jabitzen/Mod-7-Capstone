@@ -1,0 +1,53 @@
+.community-page-create {
+    width: fit-content;
+    display: flex;
+    justify-content: space-around;
+    /* text-align: center; */
+    gap: 200px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 30px;
+  }
+
+  .community-form {
+    display: inline-flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: 2px black solid;
+    border-radius: 20px;
+    background-color: rgb(207, 202, 151);
+    padding: 40px;
+    gap: 10px;
+  }
+
+  .community-title-form {
+    color: black;
+    font-size: 30px;
+  }
+
+  .input-area {
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  .community-errors {
+    color: red;
+    font-weight: 800;
+  }
+
+  .res-logo {
+    width: 700px;
+  }
+
+  .column-styles {
+    display: flex;
+    text-align: start;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .community-submit {
+    width: 80px;
+    border-radius: 20px;
+  }

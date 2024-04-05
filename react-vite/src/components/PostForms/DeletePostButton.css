@@ -1,0 +1,9 @@
+.delete-post-button {
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(211, 209, 209);
+    color: black;
+    font-size: 12px;
+    z-index: 1;
+  }
