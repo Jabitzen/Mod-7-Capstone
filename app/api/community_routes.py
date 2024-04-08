@@ -91,6 +91,7 @@ def updateCommunity(communityId):
         if not isinstance(image, str) and image is not None:
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
+            print(upload)
 
         if upload and ("url" not in upload):
             return upload
