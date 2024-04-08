@@ -10,9 +10,17 @@ transformers = ["https://static.wikia.nocookie.net/michaelbaystransformers/image
 
 # Adds a demo user, you can add other users here if you want
 def seed_communities():
-    for num in range(5):
-        demo = Community(owner_id=1,community_name="test {}".format(num), description='This is community, {}'.format(num), image_url=transformers[num])
-        db.session.add(demo)
+
+        demo1 = Community(owner_id=1,community_name="Optimus", description="This is Prime", image_url=transformers[0])
+        db.session.add(demo1)
+        demo2 = Community(owner_id=2,community_name="Bumblebee", description="This is Bumblebee", image_url=transformers[1])
+        demo3 = Community(owner_id=1,community_name="Megatron", description="Decepticon Lead", image_url=transformers[2])
+        demo4 = Community(owner_id=2,community_name="StarScream", description="Evil jet plane", image_url=transformers[3])
+        demo5 = Community(owner_id=1,community_name="Barricade", description="Undercover Cop", image_url=transformers[4])
+        db.session.add(demo2)
+        db.session.add(demo3)
+        db.session.add(demo4)
+        db.session.add(demo5)
         db.session.commit()
 
 

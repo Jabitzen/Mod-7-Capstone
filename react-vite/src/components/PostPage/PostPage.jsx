@@ -4,6 +4,8 @@ import { fetchCommunity } from "../../redux/communityReducer";
 import { fetchPost } from "../../redux/postReducer";
 import { useNavigate, useParams } from "react-router-dom";
 import "./PostPage.css";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeletePostModal from "../PostForms/DeletePostModal";
 // import DeleteRestaurantButton from "./DeleteRestaurantButton";
 import DeleteCommunityButton from "../CommunityPage/DeleteCommunityButton";
 import DeletePostButton from "../PostForms/DeletePostButton";
@@ -69,9 +71,10 @@ function PostPage() {
                           >
                             Update Post
                           </button>
-                          <DeletePostButton
-                            postId={post?.id}
-                            communityId={communityId}
+                          <OpenModalButton
+                            buttonText={"Delete"}
+                            modalComponent={<DeletePostModal postId={post?.id}
+                            communityId={communityId}/>}
                           />
                         </>
                       )}

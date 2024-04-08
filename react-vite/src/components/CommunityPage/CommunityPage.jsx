@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCommunity } from "../../redux/communityReducer";
 import { fetchCommunityPosts } from "../../redux/postReducer";
 import { useNavigate, useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteCommunityModal from "./DeleteCommunityModal";
+import DeletePostModal from "../PostForms/DeletePostModal";
 import "./CommunityPage.css";
 // import DeleteRestaurantButton from "./DeleteRestaurantButton";
-import DeleteCommunityButton from "./DeleteCommunityButton";
-import DeletePostButton from "../PostForms/DeletePostButton";
+
 
 function CommunityPage() {
   const { communityId } = useParams();
@@ -49,19 +51,34 @@ function CommunityPage() {
                   <div
                     className="post-card"
                     key={post.id}
+                    // onClick={() => {
+                    //   navigate(`/posts/${post.id}`)
+                    // }}
+                  >
+                    <p className="post-title"
                     onClick={() => {
                       navigate(`/posts/${post.id}`)
                     }}
-                  >
-                    <p className="post-title">{post.title}</p>
-                    <h4 className="post-owner">Posted by {post.owner?.username}</h4>
+                    >{post.title}</p>
+                    <h4 className="post-owner"
+                    onClick={() => {
+                      navigate(`/posts/${post.id}`)
+                    }}
+                    >Posted by {post.owner?.username}</h4>
                     <div className="post-image-container">
                       <img
                         className="post-image"
                         src={post.image_url}
+                        onClick={() => {
+                          navigate(`/posts/${post.id}`)
+                        }}
                       />
                     </div>
-                    <p className="post-description">"{post.description}"</p>
+                    <p className="post-description"
+                    onClick={() => {
+                      navigate(`/posts/${post.id}`)
+                    }}
+                    >"{post.description}"</p>
                     <div className="post-manage-buttons">
                       {post?.owner_id === user?.id && (
                         <>
@@ -75,9 +92,11 @@ function CommunityPage() {
                           >
                             Update Post
                           </button>
-                          <DeletePostButton
-                            postId={post.id}
-                            communityId={communityId}
+                          <OpenModalButton
+                            buttonText={"Delete"}
+                            onButtonClick={(e) => e.stopPropagation()}
+                            modalComponent={<DeletePostModal postId={post?.id}
+                            communityId={communityId}/>}
                           />
                         </>
                       )}
@@ -114,8 +133,12 @@ function CommunityPage() {
                     >
                       Update Community
                     </button>
-                    <DeleteCommunityButton
+                    {/* <DeleteCommunityButton
                       communityId={community.id}
+                    /> */}
+                    <OpenModalButton
+                      buttonText={"delete"}
+                      modalComponent={<DeleteCommunityModal communityId={community?.id}/>}
                     />
                   </>
                 )}
