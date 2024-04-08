@@ -1,53 +1,89 @@
 .post-page-create {
-    width: fit-content;
-    display: flex;
-    justify-content: space-around;
-    /* text-align: center; */
-    gap: 200px;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 30px;
-  }
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
 
-  .post-form {
-    display: inline-flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    border: 2px black solid;
-    border-radius: 20px;
-    background-color: rgb(207, 202, 151);
-    padding: 40px;
-    gap: 10px;
-  }
+.post-form {
+  display: flex;
+  flex-direction: column;
+  border: 2px black solid;
+  border-radius: 20px;
+  background-color: rgb(173, 210, 221);
+  padding: 40px;
+  /* padding-bottom: 0px; */
+  width: 30vw;
+  gap: 10px;
+}
 
-  .post-title-form {
-    color: black;
-    font-size: 30px;
-  }
+.post-title-form {
+  color: black;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
 
-  .input-area {
-    height: 40px;
-    border-radius: 20px;
-  }
+.input-area {
+  height: 40px;
+  width: 150px;
+  border-radius: 15px;
+}
 
-  .post-errors {
-    color: red;
-    font-weight: 800;
-  }
+.input-image-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .res-logo {
-    width: 700px;
-  }
+.input-image {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 
-  .column-styles {
-    display: flex;
-    text-align: start;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 10px;
-  }
+input[type="file"]::file-selector-button {
+  border-radius: 2px;
+  padding: 0 16px;
+  height: 30px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 1);
+  margin-right: 16px;
+}
 
-  .post-submit {
-    width: 80px;
-    border-radius: 20px;
-  }
+.post-errors {
+  color: red;
+  font-weight: 800;
+  margin: 0px;
+  height: 20px;
+}
+
+.res-logo {
+  width: 700px;
+}
+
+.column-styles {
+  display: flex;
+  /* text-align: start; */
+  /* justify-content: flex-start; */
+  justify-content: space-between;
+  /* gap: 10px; */
+}
+
+.column-styles-image {
+  display: flex;
+  /* text-align: start; */
+  /* justify-content: flex-start; */
+  justify-content: space-between;
+  /* gap: 10px; */
+}
+
+.post-submit {
+  width: 80px;
+  border-radius: 20px;
+}
+
+.loading {
+  height: 20px;
+}

@@ -15,6 +15,7 @@ function UpdateCommunity() {
   const [name, setName] = useState(community?.community_name);
   const [description, setDescription] = useState(community?.description);
   const [image, setImage] = useState(community?.image_url);
+  const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -27,15 +28,25 @@ function UpdateCommunity() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      community_name: name || community?.community_name,
-      description: description || community?.description,
-      image_url: image || community?.image_url,
-    };
+    // const payload = {
+    //   community_name: name || community?.community_name,
+    //   description: description || community?.description,
+    //   image_url: image || community?.image_url,
+    // };
+    const formData = new FormData();
 
-    const response = await dispatch(editCommunity(communityId, payload));
+    formData.append("community_name", name || community?.community_name)
+    formData.append("description", description || community?.description)
+    formData.append("image_url", image || community?.image_url)
+
+    setImageLoading(true);
+
+    const response = await dispatch(editCommunity(communityId, formData));
     console.log("RESPONSE", response)
-    if (response.errors) setErrors(response.errors);
+    if (response.errors) {
+      setErrors(response.errors);
+      setImageLoading(false)
+    }
     else navigate(`/communities/${response.id}`);
   };
 
@@ -55,10 +66,11 @@ function UpdateCommunity() {
                 onChange={(e) => setName(e.target.value)}
                 // required
               ></input>
-              <p className="community-errors">
+
+            </div>
+            <p className="community-errors">
                 {errors.community_name ? errors.community_name : null}
               </p>
-            </div>
 
             <div className="column-styles">
               <p>Update community description (optional)</p>
@@ -70,26 +82,33 @@ function UpdateCommunity() {
                 onChange={(e) => setDescription(e.target.value)}
                 // required
               ></input>
-              <p className="community-errors">
+
+            </div>
+            <p className="community-errors">
                 {errors.description ? errors.description : null}
-              </p>
+            </p>
+            <div className="column-styles-image">
+              <p>Update community image (optional):</p>
+              <div className="input-image-div">
+                <input
+                  className="input-image"
+                  type="file"
+                  accept="image/*"
+                  // value={image}
+                  onChange={(e) => setImage(e.target.files[0])}
+                ></input>
+              </div>
+
             </div>
-            <div className="column-styles">
-              <p>Update community image (optional)</p>
-              <input
-                className="input-area"
-                type="url"
-                placeholder="Enter New Image Url"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></input>
-              <p className="community-errors">
+            <p className="community-errors">
                 {errors.image_url ? errors.image_url : null}
-              </p>
-            </div>
+            </p>
             <button className="community-submit" type="submit">
               Submit
             </button>
+            <div className="loading">
+                {(imageLoading) && <p>Loading...</p>}
+              </div>
           </form>
         </div>
       )}

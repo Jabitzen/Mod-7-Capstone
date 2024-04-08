@@ -1,0 +1,61 @@
+.profilebutton {
+    height: 70px;
+    color: black;
+    width: 10vw;
+    position: relative;
+    z-index: 1;
+    background-color: rgb(224, 102, 102);
+    border: 2px black solid;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+.profilebutton > svg {
+    font-size: xxx-large;
+}
+
+.profilebutton > p {
+    font-size: large;
+}
+
+.profile-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    right: 0px;
+    top: 60px;
+    padding-top: 1%;
+    background-color: rgb(240, 161, 161);
+    border: 1px black solid;
+    gap: 10px;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    width: 115px;
+    font-size: x-large;
+  }
+
+.profile-dropdown > p, button {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.profile-dropdown > li {
+    cursor: pointer;
+}
+
+.log-out-button {
+    background-color: rgb(42, 59, 59);
+    color: white;
+    font-size: medium;
+    padding: 5px 24px;
+    border-radius: 10px;
+}
+
+ul {
+    list-style-type: none;
+  }

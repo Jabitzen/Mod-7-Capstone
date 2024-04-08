@@ -1,10 +1,11 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
-from app.forms import CommunityForm
+from app.forms import CommunityForm, CommunityEditForm
 from app.utils import get_current_user
 import json
 from types import SimpleNamespace
 from ..models import Community, User, db
+from .aws_helpers import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 
 community_routes = Blueprint('communities', __name__)
 
@@ -42,18 +43,24 @@ def get_user_communities():
     else:
         return [community.to_dict() for community in communities]
 
-
-#CREATE A NEW RESTAURANT at ["/api/restaurants"]
 @community_routes.route("/new", methods=["POST"])
 @login_required
 def newCommunity():
     form = CommunityForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        image = form.data['image_url']
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print(upload)
+
+        if "url" not in upload:
+            return upload
+
         newCommunity = Community(
             community_name=form.data['community_name'],
             description=form.data['description'],
-            image_url=form.data['image_url'],
+            image_url=upload['url'],
             owner_id=get_current_user()
         )
         db.session.add(newCommunity)
@@ -62,10 +69,9 @@ def newCommunity():
     return {'message': 'Bad Request', 'errors': form.errors}, 400
 
 
-#EDIT/UPDATE A RESTAURANT at ["/api/restaurant/:id"]
 @community_routes.route("/<int:communityId>/edit", methods=["PUT"])
 @login_required
-# @is_restaurant_owner
+# @is_community_owner
 def updateCommunity(communityId):
     community = Community.query.get(communityId)
 
@@ -73,12 +79,29 @@ def updateCommunity(communityId):
         return json.dumps({
             "message": "Community couldn't be found"
         }), 404
-    data = json.loads(request.data, object_hook=lambda d: SimpleNamespace(**d)) # convert JSON to Object so form can key in using .
-    form = CommunityForm(obj=data)
+
+    form = CommunityEditForm();
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-        form.populate_obj(community)
-        db.session.add(community)
+
+        image = form.data['image_url']
+        upload = None
+
+        if not isinstance(image, str) and image is not None:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+        if upload and ("url" not in upload):
+            return upload
+
+        remove_file_from_s3(community.image_url)
+
+        community.community_name = form.data['community_name'] or community.community_name
+        community.description = form.data['description'] or community.description
+        community.image_url = upload['url'] if upload else community.image_url
+
+        # db.session.add(community)
         db.session.commit()
         return json.dumps(community.to_dict())
     return {'message': 'Bad Request', 'errors': form.errors}, 400

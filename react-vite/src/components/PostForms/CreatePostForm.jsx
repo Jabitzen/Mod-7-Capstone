@@ -13,6 +13,7 @@ function PostForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [imageLoading, setImageLoading] = useState(false);
   const [communityId, setCommunityId] = useState(communities[0]?.id);
 //   setCommunityId(communities[0]?.id);
   const [errors, setErrors] = useState({});
@@ -31,16 +32,28 @@ function PostForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("SUBMIT", communityId)
-    const payload = {
-      title: name,
-      description,
-      image_url: image,
-      community_id: communityId
-    };
 
-    const newPost = await dispatch(writePost(payload));
-    if (newPost.errors) setErrors(newPost.errors);
+    const formData = new FormData();
+
+    formData.append("title", name)
+    formData.append("description", description)
+    formData.append("image_url", image)
+    formData.append("community_id", communityId)
+
+    setImageLoading(true)
+
+    // const payload = {
+    //   title: name,
+    //   description,
+    //   image_url: image,
+    //   community_id: communityId
+    // };
+
+    const newPost = await dispatch(writePost(formData));
+    if (newPost.errors) {
+      setErrors(newPost.errors);
+      setImageLoading(false)
+    }
     else navigate(`/communities/${communityId}`);
   };
 
@@ -48,7 +61,7 @@ function PostForm() {
     <>
       <div>
         {(
-          <div className="post-page-create form">
+          <div className="post-page-create">
             <form className="post-form" onSubmit={onSubmit}>
               <h1 className="post-title-form">Create Your Post</h1>
               <div className="column-styles">
@@ -63,13 +76,14 @@ function PostForm() {
 
                 }}
                 >
-                    <option>select</option>
+                    {/* <option>select</option> */}
                     {communityChoices}
                 </select>
-                <p className="post-errors">
+
+              </div>
+              <p className="post-errors">
                   {errors.community_id ? errors.community_id : null}
                 </p>
-              </div>
 
               <div className="column-styles">
                 <p>What is the name of your post?</p>
@@ -81,10 +95,11 @@ function PostForm() {
                   onChange={(e) => setName(e.target.value)}
                   // required
                 ></input>
-                <p className="post-errors">
+
+              </div>
+              <p className="post-errors">
                   {errors.title ? errors.title : null}
                 </p>
-              </div>
 
               <div className="column-styles">
                 <p>What is your post description?</p>
@@ -96,27 +111,33 @@ function PostForm() {
                   onChange={(e) => setDescription(e.target.value)}
                   // required
                 ></input>
-                <p className="post-errors">
+
+              </div>
+              <p className="post-errors">
                   {errors.description ? errors.description : null}
                 </p>
-              </div>
 
-              <div className="column-styles">
-                <p>Post Image (optional)</p>
-                <input
-                  className="input-area"
-                  type="url"
-                  placeholder="Enter New Image Url"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <p className="post-errors">
+              <div className="column-styles-image">
+                <p>Post Image:</p>
+                <div className="input-image-div">
+                  <input
+                    className="input-image"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                  ></input>
+                </div>
+
+              </div>
+              <p className="post-errors">
                   {errors.image_url ? errors.image_url : null}
                 </p>
-              </div>
               <button className="post-submit" type="submit">
                 Submit
               </button>
+              <div className="loading">
+                {(imageLoading) && <p>Loading...</p>}
+              </div>
             </form>
           </div>
         )}

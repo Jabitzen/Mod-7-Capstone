@@ -12,11 +12,12 @@
     margin-left: 3vw;
 }
 
-.posts-container {
+.community-page-posts-container {
     width: 30vw;
     display: flex;
     flex-direction: column;
     gap: 50px;
+    margin-left: 10vw;
 }
 
 .post-card {
@@ -26,10 +27,13 @@
 }
 
 
-.community-details-container {
-    margin-top: 50px;
+.community-page-details-container {
+    /* margin-top: 50px; */
     display: flex;
     justify-content: space-between;
+    background-image: url(https://img.freepik.com/premium-photo/crop-clapperboard-black-background_23-2147698844.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1712448000&semt=ais);
+    padding-top: 20px;
+    padding-bottom: 40px;
 }
 
 .about-community-container {

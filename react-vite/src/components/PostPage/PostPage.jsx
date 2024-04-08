@@ -35,20 +35,18 @@ function PostPage() {
           <div className="banner-image-container">
             {/* <img className="banner-image" src={community[communityId]?.imageUrl}></img> */}
           </div>
-          <hr></hr>
 
           <div className="community-page-header-container">
             <img className="community-page-header-image" src={community.image_url}></img>
-            <h1 className="community-name">NAME:{community?.community_name} </h1>
+            <h1 className="community-name">Welcome to {community?.community_name} </h1>
           </div>
-          <hr></hr>
 
           <div className="community-details-container">
 
             <div className="posts-container">
               {/* {postsArr?.map((post) => ( */}
                   <div
-                    className="post-card"
+                    className="post-page-card"
                     key={post.id}
                   >
                     <p className="post-title">{post?.title}</p>

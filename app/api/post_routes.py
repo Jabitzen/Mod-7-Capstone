@@ -1,8 +1,9 @@
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.utils import get_current_user
-from app.forms import PostForm
+from app.forms import PostForm, PostEditForm
 from ..models import Post, User, db
+from .aws_helpers import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 import json
 from types import SimpleNamespace
 
@@ -38,15 +39,20 @@ def get_user_posts():
 def newPost():
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    imageUrl = ""
-    if (form.data['image_url']):
-        imageUrl = form.data['image_url']
 
     if form.validate_on_submit():
+        image = form.data['image_url']
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print(upload)
+
+        if "url" not in upload:
+            return upload
+
         newPost = Post(
             title=form.data['title'],
             description=form.data['description'],
-            image_url= imageUrl,
+            image_url= upload['url'],
             owner_id=get_current_user(),
             community_id=form.data['community_id']
 
@@ -67,12 +73,28 @@ def updatePost(postId):
         return json.dumps({
             "message": "Community couldn't be found"
         }), 404
-    data = json.loads(request.data, object_hook=lambda d: SimpleNamespace(**d)) # convert JSON to Object so form can key in using .
-    form = PostForm(obj=data)
+
+    form = PostEditForm();
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
-        form.populate_obj(post)
-        db.session.add(post)
+
+        image = form.data['image_url']
+        upload = None
+
+        if not isinstance(image, str) and image is not None:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+
+        if upload and ("url" not in upload):
+            return upload
+
+        remove_file_from_s3(post.image_url)
+
+        post.title = form.data['title'] or post.title
+        post.description = form.data['description'] or post.description
+        post.image_url = upload['url'] if upload else post.image_url
+
         db.session.commit()
         return json.dumps(post.to_dict())
     return {'message': 'Bad Request', 'errors': form.errors}, 400

@@ -1,8 +1,7 @@
 .delete-community-button {
-    border: 1px black solid;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: rgb(211, 209, 209);
-    color: black;
-    font-size: 12px;
+  background-color: rgb(42, 59, 59);
+  color: white;
+  font-size: medium;
+  padding: 5px 24px;
+  border-radius: 10px;
   }

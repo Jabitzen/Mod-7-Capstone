@@ -15,8 +15,8 @@ def description_length_valid(form, field):
     if len(description) > 30:
         raise ValidationError('The description must not be greater than 30 characters')
 
-class PostForm(FlaskForm):
+class PostEditForm(FlaskForm):
     title = StringField('Post title', validators=[DataRequired(), title_length_valid])
     description = TextAreaField('Description', validators=[DataRequired(), description_length_valid])
-    image_url = FileField("Attach an Image", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    community_id = IntegerField("Community", validators=[DataRequired()])
+    image_url = FileField("Attach an Image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+    community_id = IntegerField("Community")

@@ -78,8 +78,9 @@ export const fetchOwnerCommunities = () => async (dispatch) => {
 export const writeCommunity = (payload) => async (dispatch) => {
   const response = await fetch("/api/communities/new", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    // headers: { "Content-Type": "application/json" },
+    // body: JSON.stringify(payload),
+    body: payload,
   });
   const community = await response.json();
   if (response.status !== 201) {
@@ -105,9 +106,11 @@ export const deleteCommunity = (communityId) => async (dispatch) => {
 export const editCommunity = (communityId, payload) => async (dispatch) => {
   const response = await fetch(`/api/communities/${communityId}/edit`, {
     method: "PUT",
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    // header: { "Content-Type": "application/json" },
+    // body: JSON.stringify(payload),
+    body: payload,
   });
+
   if (response.ok) {
     const community = await response.json();
     dispatch(updateCommunity(payload));

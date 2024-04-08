@@ -27,14 +27,13 @@ function LandingPage() {
 
     return (
       <div>
-        <hr />
-        <h1 className="welcome-bar">Welcome to the feed</h1>
-        <hr />
+        <h1 className="welcome-bar">Welcome to the feed!</h1>
 
         <div className="landing-page-container">
 
           <div className="landing-page-posts-container">
-          <h1 className="posts-header">New posts to check out!</h1>
+          <h1 className="posts-header">Popular posts to check out!</h1>
+              <div className="card-container">
                 {postsArr?.map((post) => (
                   <div
                     className="post-card"
@@ -50,7 +49,7 @@ function LandingPage() {
                           src={post.image_url}
                         />
                       </div>
-                      <p className="post-description">"{post.description}"</p>
+                      {/* <p className="post-description">"{post.description}"</p> */}
                       {/* <div className="post-manage-buttons">
                       {post?.owner_id === user?.id && (
                         <>
@@ -69,8 +68,10 @@ function LandingPage() {
                       )}
 
                     </div> */}
-                  </div>
+                    </div>
+
               ))}
+              </div>
           </div>
 
           <div className="landing-page-community-container">
@@ -111,9 +112,9 @@ function LandingPage() {
                 }}
               >
                 <div className="community-card-content">
-                  <h2>THIS IS THE NAME: {community.community_name}</h2>
-                  <h2>THIS IS THE DESCRIPTION: {community.description}</h2>
-                  <img src={community.image_url}></img>
+                  <h2 className="community-name">{community.community_name}</h2>
+                  <h2 className="community-description">{community.description}</h2>
+                  <img className="community-image" src={community.image_url}></img>
                 </div>
 
               </div>

@@ -38,13 +38,13 @@ function CommunityPage() {
 
           <div className="community-page-header-container">
             <img className="community-page-header-image" src={community.image_url}></img>
-            <h1 className="community-name">NAME:{community?.community_name} </h1>
+            <h1 className="community-name">Welcome to {community?.community_name} </h1>
           </div>
           <hr></hr>
 
-          <div className="community-details-container">
+          <div className="community-page-details-container">
 
-            <div className="posts-container">
+            <div className="community-page-posts-container">
               {postsArr?.map((post) => (
                   <div
                     className="post-card"
@@ -67,8 +67,10 @@ function CommunityPage() {
                         <>
                           <button
                             className="update-post-button"
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation()
                               navigate(`/posts/${post.id}/update`)
+                              }
                             }
                           >
                             Update Post

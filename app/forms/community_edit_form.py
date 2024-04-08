@@ -22,8 +22,7 @@ def description_length_valid(form, field):
     if len(description) > 20:
         raise ValidationError('The description must not be greater than 20 characters')
 
-
-class CommunityForm(FlaskForm):
-    community_name = StringField('Community Name', validators=[DataRequired(), community_name_exists, name_length_valid])
+class CommunityEditForm(FlaskForm):
+    community_name = StringField('Community Name', validators=[DataRequired(), name_length_valid])
     description = TextAreaField('Description', validators=[DataRequired(), description_length_valid])
-    image_url = FileField("Community Image", validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    image_url = FileField("Community Image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])

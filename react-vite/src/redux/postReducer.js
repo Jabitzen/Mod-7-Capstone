@@ -92,8 +92,9 @@ export const fetchOwnerPosts = () => async (dispatch) => {
 export const writePost = (payload) => async (dispatch) => {
   const response = await fetch("/api/posts/new", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    // headers: { "Content-Type": "application/json" },
+    // body: JSON.stringify(payload),
+    body: payload,
   });
   const post = await response.json();
   if (response.status !== 201) {
@@ -119,8 +120,9 @@ export const deletePost = (postId) => async (dispatch) => {
 export const editPost = (postId, payload) => async (dispatch) => {
   const response = await fetch(`/api/posts/${postId}/edit`, {
     method: "PUT",
-    header: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    // header: { "Content-Type": "application/json" },
+    // body: JSON.stringify(payload),
+    body: payload,
   });
   if (response.ok) {
     const post = await response.json();

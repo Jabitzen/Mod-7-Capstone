@@ -1,0 +1,57 @@
+.signup-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px black solid;
+    background-color: rgb(173, 210, 221);
+    padding: 40px;
+    /* padding-bottom: 0px; */
+    height: 550px;
+    width: 30vw;
+    gap: 10px;
+  }
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 20vw;
+    gap: 30px;
+}
+.row {
+    width: 100%;
+}
+
+.input-field {
+    height: 30px;
+    border-radius: 15px;
+}
+
+.row-style{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.errors {
+    color: red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.errors-container {
+    height: 20px;
+}
+
+.login-button, .demo-user {
+    background-color: rgb(42, 59, 59);
+    color: white;
+    font-size: medium;
+    padding: 5px 24px;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 25px;
+}

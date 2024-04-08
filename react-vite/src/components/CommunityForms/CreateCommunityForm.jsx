@@ -10,7 +10,8 @@ function CommunityForm() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -19,15 +20,25 @@ function CommunityForm() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      community_name: name,
-      description,
-      image_url: image,
-    };
+    const formData = new FormData();
 
-    const newCommunity = await dispatch(writeCommunity(payload));
-    console.log(newCommunity)
-    if (newCommunity.errors) setErrors(newCommunity.errors);
+    formData.append("community_name", name)
+    formData.append("description", description)
+    formData.append("image_url", image)
+
+    setImageLoading(true);
+
+    // const payload = {
+    //   community_name: name,
+    //   description,
+    //   image_url: image,
+    // };
+
+    const newCommunity = await dispatch(writeCommunity(formData));
+    if (newCommunity.errors) {
+      setErrors(newCommunity.errors);
+      setImageLoading(false)
+    }
     else navigate(`/communities/${newCommunity.id}`);
   };
 
@@ -36,7 +47,7 @@ function CommunityForm() {
       <div>
         {(
           <div className="community-page-create">
-            <form className="community-form" onSubmit={onSubmit}>
+            <form className="community-form" onSubmit={onSubmit} encType="multipart/form-data">
               <h1 className="community-title-form">Create Your Community</h1>
               <div className="column-styles">
                 <p>What is the name of your community?</p>
@@ -48,10 +59,10 @@ function CommunityForm() {
                   onChange={(e) => setName(e.target.value)}
                   // required
                 ></input>
-                <p className="community-errors">
-                  {errors.community_name ? errors.community_name : null}
-                </p>
               </div>
+              <p className="community-errors">
+                  {errors.community_name ? errors.community_name : null}
+              </p>
 
               <div className="column-styles">
                 <p>What is your community description?</p>
@@ -63,27 +74,33 @@ function CommunityForm() {
                   onChange={(e) => setDescription(e.target.value)}
                   // required
                 ></input>
-                <p className="community-errors">
+              </div>
+              <p className="community-errors">
                   {errors.description ? errors.description : null}
                 </p>
-              </div>
 
-              <div className="column-styles">
-                <p>Community Image</p>
-                <input
-                  className="input-area"
-                  type="url"
-                  placeholder="Enter New Image Url"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <p className="community-errors">
+              <div className="column-styles-image">
+                <p>Community Image:</p>
+                <div className="input-image-div">
+                  <input
+                    className="input-image"
+                    type="file"
+                    accept="image/*"
+                    // value={image}
+                    onChange={(e) => setImage(e.target.files[0])}
+                  ></input>
+                </div>
+              </div>
+              <p className="community-errors">
                   {errors.image_url ? errors.image_url : null}
                 </p>
-              </div>
               <button className="community-submit" type="submit">
                 Submit
               </button>
+              <div className="loading">
+                {(imageLoading) && <p>Loading...</p>}
+              </div>
+
             </form>
           </div>
         )}

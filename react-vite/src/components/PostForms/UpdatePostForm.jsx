@@ -14,6 +14,7 @@ function UpdatePost() {
   const [name, setName] = useState(post?.title);
   const [description, setDescription] = useState(post?.description);
   const [image, setImage] = useState(post?.image_url);
+  const [imageLoading, setImageLoading] = useState(false);
 //   const [communityId, setCommunityId] = useState(post?.community_id);
   const [errors, setErrors] = useState({});
 
@@ -28,15 +29,27 @@ function UpdatePost() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      title: name || post?.title,
-      description: description || post?.description,
-      image_url: image || post?.image_url,
-      community_id: post?.community_id,
-    };
+    const formData = new FormData();
 
-    const newPost = await dispatch(editPost(postId, payload));
-    if (newPost.errors) setErrors(newPost.errors);
+    formData.append("title", name || post?.title)
+    formData.append("description", description || post?.description)
+    formData.append("image_url", image || post?.image_url)
+    formData.append("community_id", post?.community_id)
+
+    // const payload = {
+    //   title: name || post?.title,
+    //   description: description || post?.description,
+    //   image_url: image || post?.image_url,
+    //   community_id: post?.community_id,
+    // };
+
+    setImageLoading(true)
+
+    const newPost = await dispatch(editPost(postId, formData));
+    if (newPost.errors) {
+      setErrors(newPost.errors);
+      setImageLoading(false)
+    }
     else navigate(`/posts/${post?.id}`);
   };
 
@@ -46,7 +59,7 @@ function UpdatePost() {
         {(
           <div className="post-page-create form">
             <form className="post-form" onSubmit={onSubmit}>
-              <h1 className="post-title-form">Create Your Post</h1>
+              <h1 className="post-title-form">Update Your Post</h1>
 
               <div className="column-styles">
                 <p>Update your post title (optional)</p>
@@ -58,10 +71,11 @@ function UpdatePost() {
                   onChange={(e) => setName(e.target.value)}
                   // required
                 ></input>
-                <p className="post-errors">
+
+              </div>
+              <p className="post-errors">
                   {errors.title ? errors.title : null}
                 </p>
-              </div>
 
               <div className="column-styles">
                 <p>Update your post description (optional)</p>
@@ -73,27 +87,33 @@ function UpdatePost() {
                   onChange={(e) => setDescription(e.target.value)}
                   // required
                 ></input>
-                <p className="post-errors">
+
+              </div>
+              <p className="post-errors">
                   {errors.description ? errors.description : null}
                 </p>
-              </div>
 
-              <div className="column-styles">
+              <div className="column-styles-image">
                 <p>Update your post image (optional)</p>
-                <input
-                  className="input-area"
-                  type="url"
-                  placeholder="Enter New Image Url"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                <p className="post-errors">
+                <div className="input-image-div">
+                  <input
+                    className="input-image"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                  ></input>
+                </div>
+
+              </div>
+              <p className="post-errors">
                   {errors.image_url ? errors.image_url : null}
                 </p>
-              </div>
               <button className="post-submit" type="submit">
                 Submit
               </button>
+              <div className="loading">
+                {(imageLoading) && <p>Loading...</p>}
+              </div>
             </form>
           </div>
         )}
