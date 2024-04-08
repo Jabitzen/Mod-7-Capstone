@@ -52,7 +52,7 @@ def newCommunity():
         image = form.data['image_url']
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
-        print(upload)
+        print("this is the upload", upload)
 
         if "url" not in upload:
             return upload
