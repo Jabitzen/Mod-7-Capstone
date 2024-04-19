@@ -36,13 +36,13 @@ function CommunityPage() {
           <div className="banner-image-container">
             {/* <img className="banner-image" src={community[communityId]?.imageUrl}></img> */}
           </div>
-          <hr></hr>
+
 
           <div className="community-page-header-container">
             <img className="community-page-header-image" src={community.image_url}></img>
-            <h1 className="community-name">Welcome to {community?.community_name} </h1>
+            <h1 className="community-page-name">Welcome to s/{community?.community_name} </h1>
           </div>
-          <hr></hr>
+
 
           <div className="community-page-details-container">
 
@@ -107,9 +107,10 @@ function CommunityPage() {
             </div>
 
             <div className="about-community-container">
-              <h1>About Community</h1>
-              <h2>{community.description}</h2>
-
+              <h1>About s/{community?.community_name}</h1>
+              <div>
+                <h2 className="about-community-description">{community?.description}</h2>
+              </div>
               <div className="manage-community-button-container">
                 {user && (
                   <>

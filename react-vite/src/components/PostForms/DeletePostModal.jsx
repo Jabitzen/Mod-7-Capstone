@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { deleteCommunity } from "../../redux/communityReducer";
+import { deletePost } from "../../redux/postReducer";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useNavigate } from "react-router-dom"

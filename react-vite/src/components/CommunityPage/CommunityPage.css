@@ -1,8 +1,17 @@
 .community-page-header-image {
     border-radius: 50%;
-    border: black 1px solid;
+    border: orangered 2px solid;
+    background-color: white;
     height: 20vh;
     width: 20vh;
+}
+
+.community-page-container {
+    margin-top: 20px;
+}
+
+.community-page-name {
+    color: orangered;
 }
 
 .community-page-header-container {
@@ -19,12 +28,14 @@
     flex-direction: column;
     gap: 50px;
     margin-left: 10vw;
+    border-radius: 15px;
 }
 
 .post-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 15px;
 }
 
 
@@ -32,13 +43,14 @@
     /* margin-top: 50px; */
     display: flex;
     justify-content: space-between;
-    background-image: url(https://img.freepik.com/premium-photo/crop-clapperboard-black-background_23-2147698844.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1712448000&semt=ais);
     padding-top: 20px;
     padding-bottom: 40px;
+    margin-top: 20px;
 }
 
 .about-community-container {
     border: black 1px solid;
+    border-radius: 15px;
     margin-right: 5vw;
     padding: 10px;
     display: flex;
@@ -46,6 +58,12 @@
     align-items: center;
     padding-bottom: 30px;
     height: fit-content;
+    width: 30vw;
+}
+
+.about-community-description {
+    text-wrap: wrap;
+    text-align: center;
 }
 .manage-community-button-container {
     display: flex;

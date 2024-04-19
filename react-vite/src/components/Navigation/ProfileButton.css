@@ -1,23 +1,30 @@
 .profilebutton {
-    height: 70px;
-    color: black;
+    height: 60px;
+    color: white;
     width: 10vw;
     position: relative;
     z-index: 1;
-    background-color: rgb(224, 102, 102);
+    background-color: orangered;
     border: 2px black solid;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-right: 1vw;
   }
 .profilebutton > svg {
     font-size: xxx-large;
+    color: black;
 }
 
 .profilebutton > p {
     font-size: large;
+}
+
+.profilebutton:hover {
+    background-color: white;
+    color: orangered;
 }
 
 .profile-dropdown {
@@ -26,10 +33,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    right: 0px;
-    top: 60px;
+    right: 1vw;
+    top: 25px;
     padding-top: 1%;
-    background-color: rgb(240, 161, 161);
+    background-color: rgb(255, 129, 83);
     border: 1px black solid;
     gap: 10px;
     padding-left: 2%;
@@ -37,6 +44,7 @@
     padding-bottom: 1%;
     width: 115px;
     font-size: x-large;
+    font-weight: bold;
   }
 
 .profile-dropdown > p, button {

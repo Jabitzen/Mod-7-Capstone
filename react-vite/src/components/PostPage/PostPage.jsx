@@ -40,7 +40,7 @@ function PostPage() {
 
           <div className="community-page-header-container">
             <img className="community-page-header-image" src={community.image_url}></img>
-            <h1 className="community-name">Welcome to {community?.community_name} </h1>
+            <h1 className="post-page-community-name">Welcome to s/{community?.community_name} </h1>
           </div>
 
           <div className="community-details-container">
@@ -85,8 +85,8 @@ function PostPage() {
             </div>
 
             <div className="about-community-container">
-              <h1>About Community</h1>
-              <h2>{community.description}</h2>
+              <h1>About s/{community?.community_name}</h1>
+              <h2>{community?.description}</h2>
 
               <div className="manage-community-button-container">
 
