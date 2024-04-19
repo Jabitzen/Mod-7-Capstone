@@ -12,8 +12,8 @@ def title_length_valid(form, field):
 
 def description_length_valid(form, field):
     description = field.data
-    if len(description) > 30:
-        raise ValidationError('The description must not be greater than 30 characters')
+    if len(description) > 70:
+        raise ValidationError('The description must not be greater than 70 characters')
 
 class PostForm(FlaskForm):
     title = StringField('Post title', validators=[DataRequired(), title_length_valid])
