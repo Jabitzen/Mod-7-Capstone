@@ -19,8 +19,8 @@ def name_length_valid(form, field):
 
 def description_length_valid(form, field):
     description = field.data
-    if len(description) > 20:
-        raise ValidationError('The description must not be greater than 20 characters')
+    if len(description) > 150:
+        raise ValidationError('The description must not be greater than 150 characters')
 
 class CommunityEditForm(FlaskForm):
     community_name = StringField('Community Name', validators=[DataRequired(), name_length_valid])
