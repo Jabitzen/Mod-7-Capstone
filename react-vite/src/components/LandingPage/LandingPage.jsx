@@ -17,7 +17,7 @@ function LandingPage() {
 
     useEffect(() => {
       dispatch(fetchAllCommunities())
-      .then(dispatch(fetchAllPosts()));
+      dispatch(fetchAllPosts());
     }, [dispatch]);
 
     if (!communities) return;
@@ -112,8 +112,8 @@ function LandingPage() {
                 }}
               >
                 <div className="community-card-content">
-                  <h2 className="community-name">{community.community_name}</h2>
-                  <h2 className="community-description">{community.description}</h2>
+                  <h2 className="community-name">s/{community.community_name}</h2>
+                  {/* <h2 className="community-description">{community.description}</h2> */}
                   <img className="community-image" src={community.image_url}></img>
                 </div>
 

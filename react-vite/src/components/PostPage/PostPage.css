@@ -20,9 +20,12 @@
     gap: 50px;
     background-color: rgb(162, 209, 236);
     border: 2px black solid;
+    border-radius: 15px;
     padding-bottom: 30px;
 }
-
+.post-page-community-name {
+    color: orangered;
+}
 .post-page-card {
     display: flex;
     flex-direction: column;
@@ -35,7 +38,6 @@
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
-    background-image: url(https://t4.ftcdn.net/jpg/02/86/32/31/360_F_286323187_mDk3N4nGDaPkUmhNcdBe3RjSOfKqx4nZ.jpg);
     padding-top: 20px;
     padding-bottom: 40px;
 }

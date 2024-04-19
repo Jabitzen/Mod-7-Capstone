@@ -24,13 +24,23 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const currErrors = errors;
 
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
           "Confirm Password field must be the same as the Password field",
       });
+    } else {
+      delete currErrors["confirmPasword"]
+      console.log("AFTER SET", currErrors);
     }
+
+    if (Object.values(currErrors).length > 0) {
+      console.log(currErrors);
+      return currErrors;
+    }
+
 
     const serverResponse = await dispatch(
       thunkSignup({

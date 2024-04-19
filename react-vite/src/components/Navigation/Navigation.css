@@ -4,23 +4,71 @@
 .navigation-container {
   display: flex;
   justify-content: space-between;
-  height: 75px;
   align-items: center;
   text-align: center;
   padding-left: 0px;
-  padding-bottom: 3px;
-  padding-top: 5px;
+  margin: 0;
+  /* padding-bottom: 3px; */
+  /* padding-top: 5px; */
   position: sticky;
   margin: 0;
   top: 0px;
-  height: 110px;
-  background-color: white;
-  box-shadow: 0px 2px 0px gray;
+  height: 7vh;
+  background-color: rgb(39, 39, 39);
+  box-shadow: 0px 2px 0px rgb(90, 90, 90);
 }
 .seen-it-logo {
-  height: 100px;
-  width: 250px;
+  height: 80%;
+  width: 80%;
+}
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: "LogoFont";
+  src: local('LogoFont'), url(../../../public/LogoFont.otf) format('woff');
+}
+
+.logo-name-tag {
+  color: orangered;
+  font-size: xx-large;
+  text-decoration: none;
+  font-family: LogoFont;
+}
+
+.main-logo:hover .logo-name-tag {
+  color: white;
+}
+
+.main-logo:hover .logo-image-container {
+ background-color : white;
+}
+
+
+
+.logo-image-container {
+  background-color: orangered;
+  border-radius: 50%;
+  height: 4.5vh;
+  width: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  /* margin-left: 1vw; */
+}
+.main-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin-left: 1vw;
+  justify-content: space-between;
+  height: 6vh;
+  gap: 10px;
+  padding: 2px;
+  /* border: 1px white ; */
+  border-radius: 15px;
 }
 
 .nav-right-container {
@@ -35,18 +83,30 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  border-radius: 20px;
+  border-radius: 5px;
   width: 50%;
   height: 40px;
   padding-left: 20px;
   padding-right: 20px;
   margin-right: 10%;
-  border: 1px black solid;
-  background-color: lightgray;
+  border: 2px rgb(90, 90, 90) solid;
+  background-color: rgb(71, 71, 71);
+}
+
+.search-icon {
+  color: lightgray;
 }
 .search-input {
   width: 90%;
-  border-radius: 15px;
-  border: 1px rgb(83, 83, 83) solid;
+  background-color: rgb(71, 71, 71);
+  border: none;
+  color: lightgray;
+  font-size: large;
+  /* border-radius: 5px; */
+  /* border: 1px rgb(83, 83, 83) solid; */
 
+}
+
+.search-input::placeholder {
+  color: lightgray;
 }
